@@ -1,11 +1,11 @@
 import { FaTimes } from 'react-icons/fa'
 
-const Memo = (props) => {
+const Memo = ({memo, onDelete}) => {
     return (
         <div className='memo'>
             <h3>
-                {props.text}
-                <FaTimes style={{color: 'red', cursor: 'pointer'}} onClick={() => {props.onDelete(props.memoID)}}/>
+                {memo.text}
+                <FaTimes style={{color: 'red', cursor: 'pointer'}} onClick={() => {onDelete(memo.id)}}/>
             </h3>
         </div>
     )

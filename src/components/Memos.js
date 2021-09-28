@@ -1,11 +1,11 @@
 import Memo from "./Memo";
 
-const Memos = (props) => {
+const Memos = ({memos, onDelete}) => {
     return (
         <>
             {
-                props.memos.map((memo) => (
-                    <Memo key={memo.id} text={memo.text} onDelete={props.onDelete} memoID={memo.id}/>
+                memos.map((memo) => (
+                    <Memo key={memo.id} memo={memo} onDelete={onDelete}/>
                 ))
             }
         </>

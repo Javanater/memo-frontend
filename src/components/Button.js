@@ -1,5 +1,5 @@
-const Button = (props) => {
-    return <button className='btn' style={{ backgroundColor: props.color }}>{props.text}</button>
+const Button = ({color, text}) => {
+    return <button className='btn' style={{ backgroundColor: color }}>{text}</button>
 }
 
 export default Button
