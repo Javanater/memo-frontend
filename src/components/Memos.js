@@ -5,7 +5,7 @@ const Memos = (props) => {
         <>
             {
                 props.memos.map((memo) => (
-                    <Memo key={memo.id} text={memo.text}/>
+                    <Memo key={memo.id} text={memo.text} onDelete={props.onDelete} memoID={memo.id}/>
                 ))
             }
         </>

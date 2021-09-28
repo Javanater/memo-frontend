@@ -5,7 +5,7 @@ const Memo = (props) => {
         <div className='memo'>
             <h3>
                 {props.text}
-                <FaTimes style={{color: 'red', cursor: 'pointer'}}/>
+                <FaTimes style={{color: 'red', cursor: 'pointer'}} onClick={() => {props.onDelete(props.memoID)}}/>
             </h3>
         </div>
     )

@@ -19,12 +19,16 @@ function App() {
         },
     ])
 
-  return (
-    <div className="container">
-        <Header/>
-        <Memos memos={memos}/>
-    </div>
-  );
+    const deleteMemo = (id) => {
+        setMemos(memos.filter((memo) => memo.id !== id))
+    }
+
+    return (
+        <div className="container">
+            <Header/>
+            <Memos memos={memos} onDelete={deleteMemo}/>
+        </div>
+    );
 }
 
 export default App;
