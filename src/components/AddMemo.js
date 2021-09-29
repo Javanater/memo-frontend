@@ -5,6 +5,12 @@ const AddMemo = ({onSubmit}) => {
 
     const createMemo = (e) => {
         e.preventDefault() // don't POST
+
+        if (!text) {
+            alert('Memo text is required')
+            return
+        }
+
         onSubmit({text})
         setText('')
     }
