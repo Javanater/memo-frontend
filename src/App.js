@@ -20,6 +20,8 @@ function App() {
         },
     ])
 
+    const [showCreateMemo, setShowCreateMemo] = useState(false)
+
     const deleteMemo = (id) => {
         setMemos(memos.filter((memo) => memo.id !== id))
     }
@@ -33,7 +35,7 @@ function App() {
     return (
         <div className="container">
             <Header/>
-            <AddMemo onSubmit={addMemo}/>
+            {showCreateMemo && <AddMemo onSubmit={addMemo}/>}
             <Memos memos={memos} onDelete={deleteMemo}/>
         </div>
     );
