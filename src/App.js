@@ -2,6 +2,7 @@ import './App.css';
 import {useState} from "react";
 import Header from "./components/Header";
 import Memos from "./components/Memos";
+import AddMemo from "./components/AddMemo";
 
 function App() {
     const [memos, setMemos] = useState([
@@ -26,6 +27,7 @@ function App() {
     return (
         <div className="container">
             <Header/>
+            <AddMemo/>
             <Memos memos={memos} onDelete={deleteMemo}/>
         </div>
     );
