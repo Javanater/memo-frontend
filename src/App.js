@@ -24,10 +24,16 @@ function App() {
         setMemos(memos.filter((memo) => memo.id !== id))
     }
 
+    const addMemo = (memo) => {
+        const id = Math.floor(Math.random() * 9999999) + 1
+        const newMemo = {id, ...memo}
+        setMemos([...memos, newMemo])
+    }
+
     return (
         <div className="container">
             <Header/>
-            <AddMemo/>
+            <AddMemo onSubmit={addMemo}/>
             <Memos memos={memos} onDelete={deleteMemo}/>
         </div>
     );
