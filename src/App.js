@@ -34,7 +34,7 @@ function App() {
 
     return (
         <div className="container">
-            <Header/>
+            <Header onCreate={() => {setShowCreateMemo(!showCreateMemo)}}/>
             {showCreateMemo && <AddMemo onSubmit={addMemo}/>}
             <Memos memos={memos} onDelete={deleteMemo}/>
         </div>
