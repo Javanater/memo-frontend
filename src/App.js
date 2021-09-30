@@ -3,7 +3,6 @@ import Header from "./components/Header";
 import Memos from "./components/Memos";
 import AddMemo from "./components/AddMemo";
 import Container from 'react-bootstrap/Container';
-// import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Login from "./components/Login";
 import useToken from "./hooks/useToken";
 
@@ -37,9 +36,13 @@ function App() {
     }
 
     const addMemo = (memo) => {
-        const id = Math.floor(Math.random() * 9999999) + 1
-        const newMemo = {id, ...memo}
-        setMemos([...memos, newMemo])
+        const id = Math.floor(Math.random() * 9999999) + 1;
+        const newMemo = {id, ...memo};
+        setMemos([...memos, newMemo]);
+    }
+
+    const logout = () => {
+        setToken(null);
     }
 
     if (!token) {
@@ -48,7 +51,7 @@ function App() {
 
     return (
         <Container fluid="sm">
-            <Header onCreate={handleShow}/>
+            <Header onCreate={handleShow} onLogout={logout}/>
             <AddMemo onSubmit={addMemo} show={show} handleClose={handleClose}/>
             <Memos memos={memos} onDelete={deleteMemo}/>
         </Container>
