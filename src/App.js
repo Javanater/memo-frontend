@@ -3,7 +3,7 @@ import Header from "./components/Header";
 import Memos from "./components/Memos";
 import AddMemo from "./components/AddMemo";
 import Container from 'react-bootstrap/Container';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+// import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Login from "./components/Login";
 
 function App() {
@@ -26,7 +26,7 @@ function App() {
     ])
 
     const [show, setShow] = useState(false);
-    const [token, setToken] = useState(false);
+    const [token, setToken] = useState('');
 
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
@@ -47,15 +47,9 @@ function App() {
 
     return (
         <Container fluid="sm">
-            <BrowserRouter>
-                <Switch>
-                    <Route path="/memos">
-                        <Header onCreate={handleShow}/>
-                        <AddMemo onSubmit={addMemo} show={show} handleClose={handleClose}/>
-                        <Memos memos={memos} onDelete={deleteMemo}/>
-                    </Route>
-                </Switch>
-            </BrowserRouter>
+            <Header onCreate={handleShow}/>
+            <AddMemo onSubmit={addMemo} show={show} handleClose={handleClose}/>
+            <Memos memos={memos} onDelete={deleteMemo}/>
         </Container>
     );
 }
