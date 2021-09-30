@@ -29,7 +29,7 @@ const AddMemo = ({onSubmit, show, handleClose}) => {
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={createMemo}>
-                    <Form.Group as={Row} className="mb-3">
+                    <Form.Group as={Row}>
                         <Form.Label column sm={2}>Memo</Form.Label>
                         <Col><Form.Control type='text' onChange={(e) => setText(e.target.value)}/></Col>
                     </Form.Group>
