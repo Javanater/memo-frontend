@@ -24,7 +24,6 @@ function App() {
         },
     ])
 
-    const [showCreateMemo, setShowCreateMemo] = useState(false)
     const [show, setShow] = useState(false);
 
     const handleShow = () => setShow(true);
