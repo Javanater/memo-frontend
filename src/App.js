@@ -1,9 +1,10 @@
-// import './App.css';
 import {useState} from "react";
 import Header from "./components/Header";
 import Memos from "./components/Memos";
 import AddMemo from "./components/AddMemo";
-import Container from 'react-bootstrap/Container'
+import Container from 'react-bootstrap/Container';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Login from "./components/Login";
 
 function App() {
     const [memos, setMemos] = useState([
@@ -25,6 +26,7 @@ function App() {
     ])
 
     const [show, setShow] = useState(false);
+    const [token, setToken] = useState(false);
 
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
@@ -39,11 +41,21 @@ function App() {
         setMemos([...memos, newMemo])
     }
 
+    if (!token) {
+        return <Container fluid="sm"><Login setToken={setToken}/></Container>
+    }
+
     return (
         <Container fluid="sm">
-            <Header onCreate={handleShow}/>
-            <AddMemo onSubmit={addMemo} show={show} handleClose={handleClose}/>
-            <Memos memos={memos} onDelete={deleteMemo}/>
+            <BrowserRouter>
+                <Switch>
+                    <Route path="/memos">
+                        <Header onCreate={handleShow}/>
+                        <AddMemo onSubmit={addMemo} show={show} handleClose={handleClose}/>
+                        <Memos memos={memos} onDelete={deleteMemo}/>
+                    </Route>
+                </Switch>
+            </BrowserRouter>
         </Container>
     );
 }
