@@ -1,13 +1,24 @@
-import { FaTimes } from 'react-icons/fa'
+import Button from 'react-bootstrap/Button'
+import Card from 'react-bootstrap/Card'
+import Col from 'react-bootstrap/Col'
+import Row from 'react-bootstrap/Row'
+import CloseButton from 'react-bootstrap/CloseButton'
 
 const Memo = ({memo, onDelete}) => {
     return (
-        <div className='memo'>
-            <h3>
-                {memo.text}
-                <FaTimes style={{color: 'red', cursor: 'pointer'}} onClick={() => {onDelete(memo.id)}}/>
-            </h3>
-        </div>
+        <Col>
+            <Card>
+                <Card.Body>
+                    <Card.Subtitle>
+                        <Row>
+                            <Col xs={10}>{memo.date.getDate() + '/' + (memo.date.getMonth()+1) + '/' + memo.date.getFullYear()}</Col>
+                            <Col xs={2}><CloseButton onClick={() => {onDelete(memo.id)}}/></Col>
+                        </Row>
+                    </Card.Subtitle>
+                    <Card.Text>{memo.text}</Card.Text>
+                </Card.Body>
+            </Card>
+        </Col>
     )
 }
 

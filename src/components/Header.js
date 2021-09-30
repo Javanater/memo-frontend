@@ -1,11 +1,14 @@
-import Button from "./Button";
+import {useState} from "react";
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
 
-const Header = ({onCreate, createCancel}) => {
+const Header = ({onCreate}) => {
     return (
-        <header className='header'>
-            <h1 className='header'>Memos</h1>
-            <Button text={createCancel ? 'Cancel' : 'Create'} color='green' onClick={onCreate}/>
-        </header>
+        <Row className="my-4">
+            <Col xs={11}><h2>Welcome, here are your memos:</h2></Col>
+            <Col xs={1}><Button onClick={onCreate}>New</Button></Col>
+        </Row>
     )
 }
 
