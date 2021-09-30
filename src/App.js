@@ -5,6 +5,7 @@ import AddMemo from "./components/AddMemo";
 import Container from 'react-bootstrap/Container';
 // import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Login from "./components/Login";
+import useToken from "./hooks/useToken";
 
 function App() {
     const [memos, setMemos] = useState([
@@ -26,7 +27,7 @@ function App() {
     ])
 
     const [show, setShow] = useState(false);
-    const [token, setToken] = useState('');
+    const {token, setToken} = useToken();
 
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
