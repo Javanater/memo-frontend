@@ -16,15 +16,17 @@ const Memo = ({memo, onDelete}) => {
                 <Card.Body>
                     <Card.Subtitle>
                         <Row>
-                            <Col xs={10}>{memo_date(memo)}</Col>
-                            <Col xs={2}><CloseButton onClick={() => {onDelete(memo)}}/></Col>
+                            <Col>{memo_date(memo)}</Col>
+                            <Col xs='auto'><CloseButton onClick={() => {onDelete(memo)}}/></Col>
                         </Row>
                     </Card.Subtitle>
                     <Card.Text>
-                        <Row>{memo.content}</Row>
-                        <Row>{memo.tags.map(tag => <Col><Badge>{tag}</Badge></Col>)}</Row>
+                        <Row><Col>{memo.content}</Col></Row>
                     </Card.Text>
                 </Card.Body>
+                <Card.Footer>
+                    <Row>{memo.tags.map(tag => <Col xs='auto'><Badge bg='secondary'>{tag}</Badge></Col>)}</Row>
+                </Card.Footer>
             </Card>
         </Col>
     )

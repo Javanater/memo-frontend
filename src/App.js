@@ -15,8 +15,6 @@ function App() {
     useEffect(() => {
         let mounted = true;
         getMemos(token).then(items => {
-            console.log(items?.memo_list);
-
             if(mounted) {
                 setMemos(items?.memo_list);
             }
@@ -31,18 +29,14 @@ function App() {
         const memoString = JSON.stringify(memo);
         newMemo(memoString, token).then(() => {
             getMemos(token).then(items => {
-                console.log(items?.memo_list);
                 setMemos(items?.memo_list);
             });
         });
     }
 
     const handleDeleteMemo = (memo) => {
-        const memoString = JSON.stringify(memo);
-        console.log(memoString);
         deleteMemo(memo, token).then(() => {
             getMemos(token).then(items => {
-                console.log(items?.memo_list);
                 setMemos(items?.memo_list);
             });
         });

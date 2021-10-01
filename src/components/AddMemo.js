@@ -19,8 +19,7 @@ const AddMemo = ({onSubmit, show, handleClose}) => {
         }
 
         const tags = tagString.split(',');
-        const memo = {content, tags}
-        console.log(memo);
+        const memo = {content, tags};
         onSubmit(memo);
         setcontent('');
         setTags('');

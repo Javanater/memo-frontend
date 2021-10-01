@@ -14,15 +14,12 @@ const Login = ({setToken}) => {
     const handleSubmit = async e => {
         e.preventDefault();
         const creds = JSON.stringify({username, password});
-        console.log(creds);
 
         if (register) {
             const response = await create(creds);
-            console.log(response);
             toggleRegister();
         } else {
             const token = await login(creds);
-            console.log(token);
             setToken(token);
         }
     }
