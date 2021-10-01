@@ -1,10 +1,10 @@
-export async function login(credentials) {
+export function login(credentials) {
     return fetch('http://localhost:3000/api/user/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: credentials
+        body: JSON.stringify(credentials)
     }).then(data => data.json())
 }
 

@@ -6,21 +6,20 @@ import Row from 'react-bootstrap/Row';
 import Card from 'react-bootstrap/Card';
 import {login, create} from "../services/login";
 
-const Login = ({setToken}) => {
+const Login = ({handleLogin}) => {
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
     const [register, toggleRegister] = useReducer(state => !state, false);
 
-    const handleSubmit = async e => {
+    const handleSubmit = e => {
         e.preventDefault();
         const creds = JSON.stringify({username, password});
 
         if (register) {
-            const response = await create(creds);
+            // const response = await create(creds);
             toggleRegister();
         } else {
-            const token = await login(creds);
-            setToken(token);
+            handleLogin({username, password});
         }
     }
 

@@ -1,4 +1,5 @@
-import {useState, useEffect} from "react";
+import {useState, useEffect, Component} from "react";
+import { connect } from 'react-redux'
 import Header from "./components/Header";
 import Memos from "./components/Memos";
 import AddMemo from "./components/AddMemo";
@@ -6,57 +7,30 @@ import Container from 'react-bootstrap/Container';
 import Login from "./components/Login";
 import useToken from "./hooks/useToken";
 import {getMemos, newMemo, deleteMemo} from "./services/memo";
+import {request_login} from './actions/login';
+import {initiateLogin} from './slices/login';
 
-function App() {
-    const [memos, setMemos] = useState([]);
-    const [show, setShow] = useState(false);
-    const {token, setToken} = useToken();
+class App extends Component {
+    render() {
+        const {dispatch, token} = this.props;
 
-    useEffect(() => {
-        let mounted = true;
-        getMemos(token).then(items => {
-            if(mounted) {
-                setMemos(items?.memo_list);
-            }
-        });
-        return () => mounted = false;
-    }, [token]);
+        if (!token)
+            return <Login handleLogin={credentials => {dispatch(initiateLogin(credentials))}}/>;
 
-    const handleShow = () => setShow(true);
-    const handleClose = () => setShow(false);
-
-    const addMemo = (memo) => {
-        const memoString = JSON.stringify(memo);
-        newMemo(memoString, token).then(() => {
-            getMemos(token).then(items => {
-                setMemos(items?.memo_list);
-            });
-        });
+        return (
+            <Container fluid="sm">
+                <Header/>
+                <AddMemo />
+                <Memos />
+            </Container>
+        );
     }
-
-    const handleDeleteMemo = (memo) => {
-        deleteMemo(memo, token).then(() => {
-            getMemos(token).then(items => {
-                setMemos(items?.memo_list);
-            });
-        });
-    }
-
-    const logout = () => {
-        setToken(null);
-    }
-
-    if (!token) {
-        return <Container fluid="sm"><Login setToken={setToken}/></Container>
-    }
-
-    return (
-        <Container fluid="sm">
-            <Header onCreate={handleShow} onLogout={logout}/>
-            <AddMemo onSubmit={addMemo} show={show} handleClose={handleClose}/>
-            <Memos memos={memos} onDelete={handleDeleteMemo}/>
-        </Container>
-    );
 }
 
-export default App;
+function select(state) {
+    return {
+        token: state.token
+    }
+}
+
+export default connect(select)(App);
