@@ -6,20 +6,24 @@ import Col from 'react-bootstrap/Col';
 import Modal from 'react-bootstrap/Modal';
 
 const AddMemo = ({onSubmit, show, handleClose}) => {
-    const [text, setText] = useState('')
+    const [content, setcontent] = useState('')
+    const [tagString, setTags] = useState('')
 
     const createMemo = (e) => {
         e.preventDefault(); // don't POST
         handleClose();
 
-        if (!text) {
-            alert('Memo text is required');
+        if (!content) {
+            alert('Memo content is required');
             return;
         }
 
-        const date = new Date();
-        onSubmit({text, date});
-        setText('');
+        const tags = tagString.split(',');
+        const memo = {content, tags}
+        console.log(memo);
+        onSubmit(memo);
+        setcontent('');
+        setTags('');
     }
 
     return (
@@ -29,9 +33,13 @@ const AddMemo = ({onSubmit, show, handleClose}) => {
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={createMemo}>
+                    <Form.Group as={Row} className='mb-4'>
+                        <Form.Label column sm={2}>Content</Form.Label>
+                        <Col><Form.Control type='text' onChange={(e) => setcontent(e.target.value)}/></Col>
+                    </Form.Group>
                     <Form.Group as={Row}>
-                        <Form.Label column sm={2}>Memo</Form.Label>
-                        <Col><Form.Control type='text' onChange={(e) => setText(e.target.value)}/></Col>
+                        <Form.Label column sm={2}>Tags</Form.Label>
+                        <Col><Form.Control type='text' onChange={(e) => setTags(e.target.value)}/></Col>
                     </Form.Group>
                 </Form>
             </Modal.Body>

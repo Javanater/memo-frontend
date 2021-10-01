@@ -1,32 +1,28 @@
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import Header from "./components/Header";
 import Memos from "./components/Memos";
 import AddMemo from "./components/AddMemo";
 import Container from 'react-bootstrap/Container';
 import Login from "./components/Login";
 import useToken from "./hooks/useToken";
+import {getMemos, newMemo} from "./services/memo";
 
 function App() {
-    const [memos, setMemos] = useState([
-        {
-            'id': 1,
-            'text': 'Test Memo 1',
-            'date': new Date()
-        },
-        {
-            'id': 2,
-            'text': 'Test Memo 2',
-            'date': new Date()
-        },
-        {
-            'id': 3,
-            'text': 'Test Memo 3',
-            'date': new Date()
-        },
-    ])
-
+    const [memos, setMemos] = useState([]);
     const [show, setShow] = useState(false);
     const {token, setToken} = useToken();
+
+    useEffect(() => {
+        let mounted = true;
+        getMemos(token).then(items => {
+            console.log(items?.memo_list);
+
+            if(mounted) {
+                setMemos(items?.memo_list);
+            }
+        });
+        return () => mounted = false;
+    }, [token]);
 
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
@@ -36,9 +32,14 @@ function App() {
     }
 
     const addMemo = (memo) => {
-        const id = Math.floor(Math.random() * 9999999) + 1;
-        const newMemo = {id, ...memo};
-        setMemos([...memos, newMemo]);
+        const memoString = JSON.stringify(memo);
+        console.log(memoString);
+        newMemo(memoString, token).then(() => {
+            getMemos(token).then(items => {
+                console.log(items?.memo_list);
+                setMemos(items?.memo_list);
+            });
+        });
     }
 
     const logout = () => {
