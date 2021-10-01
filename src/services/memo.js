@@ -16,3 +16,15 @@ export function newMemo(memo, userToken) {
         body: memo
     }).then(data => data.json());
 }
+
+export function deleteMemo(memo, userToken) {
+    const url = 'http://localhost:3000/api/memo/' + memo.id;
+    return fetch(url, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': 'Bearer ' + userToken,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(memo)
+    }).then(data => data.json());
+}

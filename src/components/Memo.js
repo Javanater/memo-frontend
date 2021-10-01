@@ -17,7 +17,7 @@ const Memo = ({memo, onDelete}) => {
                     <Card.Subtitle>
                         <Row>
                             <Col xs={10}>{memo_date(memo)}</Col>
-                            <Col xs={2}><CloseButton onClick={() => {onDelete(memo.id)}}/></Col>
+                            <Col xs={2}><CloseButton onClick={() => {onDelete(memo)}}/></Col>
                         </Row>
                     </Card.Subtitle>
                     <Card.Text>

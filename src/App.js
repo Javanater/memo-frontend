@@ -5,7 +5,7 @@ import AddMemo from "./components/AddMemo";
 import Container from 'react-bootstrap/Container';
 import Login from "./components/Login";
 import useToken from "./hooks/useToken";
-import {getMemos, newMemo} from "./services/memo";
+import {getMemos, newMemo, deleteMemo} from "./services/memo";
 
 function App() {
     const [memos, setMemos] = useState([]);
@@ -27,14 +27,20 @@ function App() {
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
 
-    const deleteMemo = (id) => {
-        setMemos(memos.filter((memo) => memo.id !== id))
-    }
-
     const addMemo = (memo) => {
         const memoString = JSON.stringify(memo);
-        console.log(memoString);
         newMemo(memoString, token).then(() => {
+            getMemos(token).then(items => {
+                console.log(items?.memo_list);
+                setMemos(items?.memo_list);
+            });
+        });
+    }
+
+    const handleDeleteMemo = (memo) => {
+        const memoString = JSON.stringify(memo);
+        console.log(memoString);
+        deleteMemo(memo, token).then(() => {
             getMemos(token).then(items => {
                 console.log(items?.memo_list);
                 setMemos(items?.memo_list);
@@ -54,7 +60,7 @@ function App() {
         <Container fluid="sm">
             <Header onCreate={handleShow} onLogout={logout}/>
             <AddMemo onSubmit={addMemo} show={show} handleClose={handleClose}/>
-            <Memos memos={memos} onDelete={deleteMemo}/>
+            <Memos memos={memos} onDelete={handleDeleteMemo}/>
         </Container>
     );
 }
