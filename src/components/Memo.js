@@ -17,7 +17,7 @@ const Memo = ({memo, handleDeleteMemo}) => {
                     <Card.Subtitle>
                         <Row>
                             <Col>{memo_date(memo)}</Col>
-                            <Col xs='auto'><CloseButton onClick={() => {handleDeleteMemo(memo.id)}}/></Col>
+                            <Col xs='auto'><CloseButton onClick={() => {handleDeleteMemo(memo.id, memo.user_id, memo.create_timestamp)}}/></Col>
                         </Row>
                     </Card.Subtitle>
                     <Card.Text>

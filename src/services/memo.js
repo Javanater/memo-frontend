@@ -17,7 +17,7 @@ export function newMemo(memo, userToken) {
     }).then(data => data.json());
 }
 
-export function deleteMemo(memo_id, userToken) {
+export function deleteMemo(memo_id, user_id, create_timestamp, userToken) {
     const url = 'http://localhost:3000/api/memo/' + memo_id;
     return fetch(url, {
         method: 'DELETE',
@@ -25,6 +25,6 @@ export function deleteMemo(memo_id, userToken) {
             'Authorization': 'Bearer ' + userToken,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(memo_id)
+        body: JSON.stringify({user_id, create_timestamp})
     });
 }

@@ -47,8 +47,8 @@ class App extends Component {
                     memos={memos}
                     getMemosPending={get_memos_pending}
                     getMemosFailed={get_memos_failed}
-                    handleGetMemos={() => dispatch(getAllMemos(token))}
-                    handleDeleteMemo={memo_id => dispatch(initiateDeleteMemo(memo_id))}
+                    handleGetMemos={() => dispatch(getAllMemos())}
+                    handleDeleteMemo={(memo_id, user_id, create_timestamp) => dispatch(initiateDeleteMemo(memo_id, user_id, create_timestamp))}
                     deleteMemoFailed={delete_memo_failed}
                 />
             </Container>

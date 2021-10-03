@@ -4,10 +4,10 @@ import {
     REQUEST_DELETE_MEMO, DELETE_MEMO_PASSED, DELETE_MEMO_FAILED
 } from '../actions/login'
 
-export function getAllMemos(token) {
+export function getAllMemos() {
     return function fetchAllMemos(dispatch, getState) {
         dispatch({type: REQUEST_GET_MEMOS});
-        getMemos(token).then(response => {
+        getMemos(getState().token).then(response => {
                 if (!response.ok) {
                     dispatch({type: GET_MEMOS_FAILED});
                     return;
@@ -25,17 +25,17 @@ export function getAllMemos(token) {
     }
 }
 
-export function initiateDeleteMemo(memo_id) {
+export function initiateDeleteMemo(memo_id, user_id, create_timestamp) {
     return function fetchAllMemos(dispatch, getState) {
         dispatch({type: REQUEST_DELETE_MEMO});
-        deleteMemo(memo_id, getState().token).then(response => {
+        deleteMemo(memo_id, user_id, create_timestamp, getState().token).then(response => {
                 if (!response.ok) {
                     dispatch({type: DELETE_MEMO_FAILED});
                     return;
                 }
 
                 dispatch({type: DELETE_MEMO_PASSED});
-                dispatch({type: REQUEST_GET_MEMOS});
+                dispatch(getAllMemos());
             }, error => {dispatch({type: DELETE_MEMO_FAILED})}
         );
     }
