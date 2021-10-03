@@ -13,8 +13,8 @@ export function newMemo(memo, userToken) {
             'Authorization': 'Bearer ' + userToken,
             'Content-Type': 'application/json'
         },
-        body: memo
-    }).then(data => data.json());
+        body: JSON.stringify(memo)
+    });
 }
 
 export function deleteMemo(memo_id, user_id, create_timestamp, userToken) {

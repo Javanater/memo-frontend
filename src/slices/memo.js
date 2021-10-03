@@ -6,6 +6,7 @@ import {
 } from '../actions/login'
 
 export function getAllMemos() {
+    console.log('requestAllMemos')
     return function fetchAllMemos(dispatch, getState) {
         dispatch({type: REQUEST_GET_MEMOS});
         getMemos(getState().token).then(response => {
@@ -18,6 +19,7 @@ export function getAllMemos() {
                     if (!data.memo_list) {
                         dispatch({type: GET_MEMOS_FAILED});
                     } else {
+                        console.log('memos reveived')
                         dispatch({type: GET_MEMOS_PASSED, memos: data.memo_list});
                     }
                 });
@@ -27,7 +29,7 @@ export function getAllMemos() {
 }
 
 export function initiateDeleteMemo(memo_id, user_id, create_timestamp) {
-    return function fetchAllMemos(dispatch, getState) {
+    return function asyncDeleteMemo(dispatch, getState) {
         dispatch({type: REQUEST_DELETE_MEMO});
         deleteMemo(memo_id, user_id, create_timestamp, getState().token).then(response => {
                 if (!response.ok) {
@@ -43,7 +45,8 @@ export function initiateDeleteMemo(memo_id, user_id, create_timestamp) {
 }
 
 export function initiateCreateMemo(memo) {
-    return function fetchAllMemos(dispatch, getState) {
+    console.log('initiateCreateMemo')
+    return function asyncNewMemo(dispatch, getState) {
         dispatch({type: REQUEST_CREATE_MEMO});
         newMemo(memo, getState().token).then(response => {
                 if (!response.ok) {
