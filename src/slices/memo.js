@@ -1,7 +1,8 @@
-import {getMemos, deleteMemo} from '../services/memo'
+import {getMemos, deleteMemo, newMemo} from '../services/memo'
 import {
     REQUEST_GET_MEMOS, GET_MEMOS_PASSED, GET_MEMOS_FAILED,
-    REQUEST_DELETE_MEMO, DELETE_MEMO_PASSED, DELETE_MEMO_FAILED
+    REQUEST_DELETE_MEMO, DELETE_MEMO_PASSED, DELETE_MEMO_FAILED,
+    REQUEST_CREATE_MEMO, CREATE_MEMO_PASSED, CREATE_MEMO_FAILED
 } from '../actions/login'
 
 export function getAllMemos() {
@@ -37,6 +38,22 @@ export function initiateDeleteMemo(memo_id, user_id, create_timestamp) {
                 dispatch({type: DELETE_MEMO_PASSED});
                 dispatch(getAllMemos());
             }, error => {dispatch({type: DELETE_MEMO_FAILED})}
+        );
+    }
+}
+
+export function initiateCreateMemo(memo) {
+    return function fetchAllMemos(dispatch, getState) {
+        dispatch({type: REQUEST_CREATE_MEMO});
+        newMemo(memo, getState().token).then(response => {
+                if (!response.ok) {
+                    dispatch({type: CREATE_MEMO_FAILED});
+                    return;
+                }
+
+                dispatch({type: CREATE_MEMO_PASSED});
+                dispatch(getAllMemos());
+            }, error => {dispatch({type: CREATE_MEMO_FAILED})}
         );
     }
 }

@@ -3,7 +3,9 @@ import {
     LOGOUT,
     REQUEST_REGISTER, REGISTER_PASSED, REGISTER_FAILED,
     REQUEST_GET_MEMOS, GET_MEMOS_PASSED, GET_MEMOS_FAILED,
-    REQUEST_DELETE_MEMO, DELETE_MEMO_PASSED, DELETE_MEMO_FAILED
+    REQUEST_DELETE_MEMO, DELETE_MEMO_PASSED, DELETE_MEMO_FAILED,
+    REQUEST_CREATE_MEMO, CREATE_MEMO_PASSED, CREATE_MEMO_FAILED,
+    SHOW_CREATE_MEMO, HIDE_CREATE_MEMO
 } from '../actions/login'
 
 const initialLoginState = {
@@ -13,6 +15,9 @@ const initialLoginState = {
     memos: null,
     delete_memo_pending: false,
     delete_memo_failed: false,
+    create_memo_pending: false,
+    create_memo_failed: false,
+    show_create_memo: false,
 }
 
 const initialState = {
@@ -104,6 +109,40 @@ export function login(state = initialState, action) {
                 ...state,
                 delete_memo_pending: false,
                 delete_memo_failed: true
+            };
+
+        case REQUEST_CREATE_MEMO:
+            return {
+                ...state,
+                create_memo_pending: true,
+                create_memo_failed: false,
+                memo_id: action.memo_id
+            };
+
+        case CREATE_MEMO_PASSED:
+            return {
+                ...state,
+                create_memo_pending: false,
+                create_memo_failed: false
+            };
+
+        case CREATE_MEMO_FAILED:
+            return {
+                ...state,
+                create_memo_pending: false,
+                create_memo_failed: true
+            };
+
+        case SHOW_CREATE_MEMO:
+            return {
+                ...state,
+                show_create_memo: true
+            };
+
+        case HIDE_CREATE_MEMO:
+            return {
+                ...state,
+                show_create_memo: false
             };
 
         default:

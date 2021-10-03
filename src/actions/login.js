@@ -16,6 +16,13 @@ export const REQUEST_DELETE_MEMO = 'REQUEST_DELETE_MEMO'
 export const DELETE_MEMO_PASSED = 'DELETE_MEMO_PASSED'
 export const DELETE_MEMO_FAILED = 'DELETE_MEMO_FAILED'
 
+export const REQUEST_CREATE_MEMO = 'REQUEST_CREATE_MEMO'
+export const CREATE_MEMO_PASSED = 'CREATE_MEMO_PASSED'
+export const CREATE_MEMO_FAILED = 'CREATE_MEMO_FAILED'
+
+export const SHOW_CREATE_MEMO = 'SHOW_CREATE_MEMO'
+export const HIDE_CREATE_MEMO = 'HIDE_CREATE_MEMO'
+
 export function request_login(credentials) {
     return {
         type: REQUEST_LOGIN,
@@ -97,5 +104,36 @@ export function delete_memo_passed() {
 export function delete_memo_failed() {
     return {
         type: DELETE_MEMO_FAILED
+    };
+}
+
+export function request_create_memo(memo_id) {
+    return {
+        type: REQUEST_CREATE_MEMO,
+        memo_id: memo_id
+    };
+}
+
+export function create_memo_passed() {
+    return {
+        type: CREATE_MEMO_PASSED
+    };
+}
+
+export function create_memo_failed() {
+    return {
+        type: CREATE_MEMO_FAILED
+    };
+}
+
+export function show_create_memo() {
+    return {
+        type: SHOW_CREATE_MEMO
+    };
+}
+
+export function hide_create_memo() {
+    return {
+        type: HIDE_CREATE_MEMO
     };
 }

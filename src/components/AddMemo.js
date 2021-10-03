@@ -5,13 +5,13 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Modal from 'react-bootstrap/Modal';
 
-const AddMemo = ({onSubmit, show, handleClose}) => {
+const AddMemo = ({show, onHide, handleCreateMemo}) => {
     const [content, setcontent] = useState('')
     const [tagString, setTags] = useState('')
 
     const createMemo = (e) => {
         e.preventDefault(); // don't POST
-        handleClose();
+        onHide();
 
         if (!content) {
             alert('Memo content is required');
@@ -20,13 +20,13 @@ const AddMemo = ({onSubmit, show, handleClose}) => {
 
         const tags = tagString.split(',');
         const memo = {content, tags};
-        onSubmit(memo);
+        handleCreateMemo(memo);
         setcontent('');
         setTags('');
     }
 
     return (
-        <Modal show={show} onHide={handleClose}>
+        <Modal show={show} onHide={onHide}>
             <Modal.Header closeButton>
                 <Modal.Title>New Memo</Modal.Title>
             </Modal.Header>

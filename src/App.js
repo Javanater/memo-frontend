@@ -9,8 +9,8 @@ import useToken from "./hooks/useToken";
 import {getMemos, newMemo, deleteMemo} from "./services/memo";
 import {request_login} from './actions/login';
 import {initiateLogin, initiateRegister} from './slices/login';
-import {getAllMemos, initiateDeleteMemo} from './slices/memo';
-import {LOGOUT} from './actions/login';
+import {getAllMemos, initiateDeleteMemo, initiateCreateMemo} from './slices/memo';
+import {LOGOUT, SHOW_CREATE_MEMO, HIDE_CREATE_MEMO} from './actions/login';
 
 class App extends Component {
     render() {
@@ -24,7 +24,8 @@ class App extends Component {
             get_memos_pending,
             get_memos_failed,
             memos,
-            delete_memo_failed
+            delete_memo_failed,
+            show_create_memo
         } = this.props;
 
         if (!token)
@@ -40,9 +41,14 @@ class App extends Component {
         return (
             <Container fluid="sm">
                 <Header
+                    onCreate={() => dispatch({type: SHOW_CREATE_MEMO})}
                     handleLogout={() => dispatch({type: LOGOUT})}
                 />
-                <AddMemo />
+                <AddMemo
+                    show={show_create_memo}
+                    onHide={() => dispatch({type: HIDE_CREATE_MEMO})}
+                    handleCreateMemo={memo => dispatch(initiateCreateMemo(memo))}
+                />
                 <Memos
                     memos={memos}
                     getMemosPending={get_memos_pending}
@@ -66,7 +72,8 @@ function select(state) {
         get_memos_pending: state.get_memos_pending,
         get_memos_failed: state.get_memos_failed,
         memos: state.memos,
-        delete_memo_failed: state.delete_memo_failed
+        delete_memo_failed: state.delete_memo_failed,
+        show_create_memo: state.show_create_memo
     }
 }
 
