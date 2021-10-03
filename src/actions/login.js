@@ -12,6 +12,10 @@ export const REQUEST_GET_MEMOS = 'REQUEST_GET_MEMOS'
 export const GET_MEMOS_PASSED = 'GET_MEMOS_PASSED'
 export const GET_MEMOS_FAILED = 'GET_MEMOS_FAILED'
 
+export const REQUEST_DELETE_MEMO = 'REQUEST_DELETE_MEMO'
+export const DELETE_MEMO_PASSED = 'DELETE_MEMO_PASSED'
+export const DELETE_MEMO_FAILED = 'DELETE_MEMO_FAILED'
+
 export function request_login(credentials) {
     return {
         type: REQUEST_LOGIN,
@@ -74,5 +78,24 @@ export function get_memos_passed(memos) {
 export function get_memos_failed() {
     return {
         type: GET_MEMOS_FAILED
+    };
+}
+
+export function request_delete_memo(memo_id) {
+    return {
+        type: REQUEST_DELETE_MEMO,
+        memo_id: memo_id
+    };
+}
+
+export function delete_memo_passed() {
+    return {
+        type: DELETE_MEMO_PASSED
+    };
+}
+
+export function delete_memo_failed() {
+    return {
+        type: DELETE_MEMO_FAILED
     };
 }

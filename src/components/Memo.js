@@ -9,7 +9,7 @@ function memo_date(memo) {
     return date.getDate() + '/' + (date.getMonth()+1) + '/' + date.getFullYear()
 }
 
-const Memo = ({memo, onDelete}) => {
+const Memo = ({memo, handleDeleteMemo}) => {
     return (
         <Col>
             <Card>
@@ -17,7 +17,7 @@ const Memo = ({memo, onDelete}) => {
                     <Card.Subtitle>
                         <Row>
                             <Col>{memo_date(memo)}</Col>
-                            <Col xs='auto'><CloseButton onClick={() => {onDelete(memo)}}/></Col>
+                            <Col xs='auto'><CloseButton onClick={() => {handleDeleteMemo(memo.id)}}/></Col>
                         </Row>
                     </Card.Subtitle>
                     <Card.Text>

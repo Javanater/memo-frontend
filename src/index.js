@@ -19,7 +19,7 @@ const asyncFunctionMiddleware = storeAPI => next => action => {
 }
 
 const middlewareEnhancer = applyMiddleware(asyncFunctionMiddleware)
-let store = createStore(login, middlewareEnhancer)
+const store = createStore(login, middlewareEnhancer)
 
 ReactDOM.render(
     // <ReactDOM.SrictMode>
