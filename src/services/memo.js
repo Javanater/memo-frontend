@@ -3,7 +3,7 @@ export function getMemos(userToken) {
         headers: {
             'Authorization': 'Bearer ' + userToken
         }
-    }).then(data => data.json());
+    });
 }
 
 export function newMemo(memo, userToken) {

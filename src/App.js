@@ -9,10 +9,22 @@ import useToken from "./hooks/useToken";
 import {getMemos, newMemo, deleteMemo} from "./services/memo";
 import {request_login} from './actions/login';
 import {initiateLogin, initiateRegister} from './slices/login';
+import {getAllMemos} from './slices/memo';
+import {LOGOUT} from './actions/login';
 
 class App extends Component {
     render() {
-        const {dispatch, login_pending, login_failed, register_pending, register_failed, token} = this.props;
+        const {
+            dispatch,
+            login_pending,
+            login_failed,
+            register_pending,
+            register_failed,
+            token,
+            get_memos_pending,
+            get_memos_failed,
+            memos
+        } = this.props;
 
         if (!token)
             return <Login
@@ -26,9 +38,16 @@ class App extends Component {
 
         return (
             <Container fluid="sm">
-                <Header/>
+                <Header
+                    handleLogout={() => dispatch({type: LOGOUT})}
+                />
                 <AddMemo />
-                <Memos />
+                <Memos
+                    memos={memos}
+                    getMemosPending={get_memos_pending}
+                    getMemosFailed={get_memos_failed}
+                    handleGetMemos={() => dispatch(getAllMemos(token))}
+                />
             </Container>
         );
     }
@@ -40,7 +59,10 @@ function select(state) {
         login_failed: state.login_failed,
         register_pending: state.register_pending,
         register_failed: state.register_failed,
-        token: state.token
+        token: state.token,
+        get_memos_pending: state.get_memos_pending,
+        get_memos_failed: state.get_memos_failed,
+        memos: state.memos
     }
 }
 
