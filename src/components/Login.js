@@ -5,23 +5,21 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Card from 'react-bootstrap/Card';
 import Alert from 'react-bootstrap/Alert';
-import Spinner from 'react-bootstrap/Spinner';
-import {login, create} from "../services/login";
 
-const Login = ({loginPending, loginFailed, handleLogin}) => {
+const Login = ({loginPending, loginFailed, handleLogin, registerPending, registerFailed, handleRegister}) => {
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
     const [register, toggleRegister] = useReducer(state => !state, false);
 
     const handleSubmit = e => {
         e.preventDefault();
-        const creds = JSON.stringify({username, password});
+        const creds = {username, password};
 
         if (register) {
-            // const response = await create(creds);
+            handleRegister(creds);
             toggleRegister();
         } else {
-            handleLogin({username, password});
+            handleLogin(creds);
         }
     }
 
@@ -41,11 +39,18 @@ const Login = ({loginPending, loginFailed, handleLogin}) => {
                                 <Col><Form.Control type='password' onChange={e => setPassword(e.target.value)}/></Col>
                             </Form.Group>
                             <Row>
-                                <Col><Button variant="primary" type="submit" className='mt-3' disabled={loginPending}>{loginPending ? 'Logging in...' : 'Submit'}</Button></Col>
+                                <Col>
+                                    <Button variant="primary" type="submit" className='mt-3' disabled={loginPending || registerPending}>
+                                        {(loginPending || registerPending) ? 'Standby...' : 'Submit'}
+                                    </Button>
+                                </Col>
                                 <Col xs='auto'><Button variant="outline-primary" className='mt-3' onClick={toggleRegister}>{register ? 'Cancel' : 'Register'}</Button></Col>
                             </Row>
                             {loginFailed && <Row className='mt-4'>
                                 <Col><Alert variant='danger'>Invalid username or password</Alert></Col>
+                            </Row>}
+                            {registerFailed && <Row className='mt-4'>
+                                <Col><Alert variant='danger'>Can't register: invalid username</Alert></Col>
                             </Row>}
                         </Form>
                     </Card.Body>

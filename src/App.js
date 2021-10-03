@@ -8,17 +8,20 @@ import Login from "./components/Login";
 import useToken from "./hooks/useToken";
 import {getMemos, newMemo, deleteMemo} from "./services/memo";
 import {request_login} from './actions/login';
-import {initiateLogin} from './slices/login';
+import {initiateLogin, initiateRegister} from './slices/login';
 
 class App extends Component {
     render() {
-        const {dispatch, login_pending, login_failed, token} = this.props;
+        const {dispatch, login_pending, login_failed, register_pending, register_failed, token} = this.props;
 
         if (!token)
             return <Login
                 loginPending={login_pending}
                 loginFailed={login_failed}
                 handleLogin={credentials => {dispatch(initiateLogin(credentials))}}
+                registerPending={register_pending}
+                registerFailed={register_failed}
+                handleRegister={credentials => {dispatch(initiateRegister(credentials))}}
             />;
 
         return (
@@ -35,6 +38,8 @@ function select(state) {
     return {
         login_pending: state.login_pending,
         login_failed: state.login_failed,
+        register_pending: state.register_pending,
+        register_failed: state.register_failed,
         token: state.token
     }
 }
