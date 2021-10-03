@@ -16,7 +16,7 @@ export function login_passed(token) {
     };
 }
 
-export function login_failed(error) {
+export function login_failed() {
     return {
         type: LOGIN_FAILED
     };

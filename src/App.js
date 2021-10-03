@@ -12,10 +12,14 @@ import {initiateLogin} from './slices/login';
 
 class App extends Component {
     render() {
-        const {dispatch, token} = this.props;
+        const {dispatch, login_pending, login_failed, token} = this.props;
 
         if (!token)
-            return <Login handleLogin={credentials => {dispatch(initiateLogin(credentials))}}/>;
+            return <Login
+                loginPending={login_pending}
+                loginFailed={login_failed}
+                handleLogin={credentials => {dispatch(initiateLogin(credentials))}}
+            />;
 
         return (
             <Container fluid="sm">
@@ -29,6 +33,8 @@ class App extends Component {
 
 function select(state) {
     return {
+        login_pending: state.login_pending,
+        login_failed: state.login_failed,
         token: state.token
     }
 }
