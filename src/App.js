@@ -1,16 +1,22 @@
-import {useState, useEffect, Component} from "react";
+import {Component} from "react";
 import { connect } from 'react-redux'
 import Header from "./components/Header";
 import Memos from "./components/Memos";
 import AddMemo from "./components/AddMemo";
 import Container from 'react-bootstrap/Container';
 import Login from "./components/Login";
-import useToken from "./hooks/useToken";
-import {getMemos, newMemo, deleteMemo} from "./services/memo";
-import {request_login} from './actions/login';
-import {initiateLogin, initiateRegister} from './slices/login';
-import {getAllMemos, initiateDeleteMemo, initiateCreateMemo} from './slices/memo';
-import {LOGOUT, SHOW_CREATE_MEMO, HIDE_CREATE_MEMO} from './actions/login';
+import {
+    initiateLogin,
+    initiateRegister,
+    logout,
+} from './actions/user';
+import {
+    getAllMemos,
+    initiateDeleteMemo,
+    initiateCreateMemo,
+    show_create_memo,
+    hide_create_memo
+} from './actions/memos';
 
 class App extends Component {
     render() {
@@ -25,7 +31,7 @@ class App extends Component {
             get_memos_failed,
             memos,
             delete_memo_failed,
-            show_create_memo
+            show_create_memo_modal
         } = this.props;
 
         if (!token)
@@ -41,12 +47,12 @@ class App extends Component {
         return (
             <Container fluid="sm">
                 <Header
-                    onCreate={() => dispatch({type: SHOW_CREATE_MEMO})}
-                    handleLogout={() => dispatch({type: LOGOUT})}
+                    onCreate={() => dispatch(show_create_memo())}
+                    handleLogout={() => dispatch(logout())}
                 />
                 <AddMemo
-                    show={show_create_memo}
-                    onHide={() => dispatch({type: HIDE_CREATE_MEMO})}
+                    show={show_create_memo_modal}
+                    onHide={() => dispatch(hide_create_memo())}
                     handleCreateMemo={memo => dispatch(initiateCreateMemo(memo))}
                 />
                 <Memos
@@ -73,7 +79,7 @@ function select(state) {
         get_memos_failed: state.get_memos_failed,
         memos: state.memos,
         delete_memo_failed: state.delete_memo_failed,
-        show_create_memo: state.show_create_memo
+        show_create_memo_modal: state.show_create_memo
     }
 }
 
